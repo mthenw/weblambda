@@ -34,13 +34,12 @@ func install(role string) {
 }
 
 func zipRuntime() []byte {
-	buffer := bytes.NewBuffer(nil)
-	archive := zip.NewWriter(buffer)
+	buf := bytes.NewBuffer(nil)
+	arch := zip.NewWriter(buf)
 
-	fwriter, _ := archive.Create("index.js")
+	fwriter, _ := arch.Create("index.js")
 	fwriter.Write([]byte(runtimeFunction))
 
-	archive.Close()
-
-	return buffer.Bytes()
+	arch.Close()
+	return buf.Bytes()
 }
