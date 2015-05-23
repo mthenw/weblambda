@@ -9,7 +9,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "weblambda"
-	app.Usage = "backendless webhooks backed by AWS Lambda"
+	app.Usage = "backendless webhooks server backed by AWS Lambda"
 
 	app.Commands = []cli.Command{
 		{
@@ -22,6 +22,13 @@ func main() {
 			Usage: "install weblambda function on AWS Lambda",
 			Action: func(c *cli.Context) {
 				install(c.String("role"))
+			},
+		},
+		{
+			Name:  "server",
+			Usage: "start HTTP server",
+			Action: func(c *cli.Context) {
+				server()
 			},
 		},
 	}

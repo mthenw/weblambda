@@ -10,7 +10,7 @@ import (
 
 var runtimeFunction = `
 exports.handler = function(event, context) {
-    eval(event.source);
+	eval(event.source);
 };
 `
 
@@ -22,9 +22,9 @@ func install(role string) {
 			ZipFile: zipRuntime(),
 		},
 		FunctionName: aws.String("weblambda"),
-		Handler:      aws.String("handler"),
-		Role:         aws.String(role),
+		Handler:      aws.String("index.handler"),
 		Runtime:      aws.String("nodejs"),
+		Role:         aws.String(role),
 	}
 
 	_, err := svc.CreateFunction(params)
