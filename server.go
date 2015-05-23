@@ -23,7 +23,7 @@ func server() {
 
 		output, _ := invoke(svc, &fnc)
 
-		c.String(http.StatusUnauthorized, string(output.Payload))
+		c.String(http.StatusOK, string(output.Payload))
 	})
 	router.Run(":8080")
 }
