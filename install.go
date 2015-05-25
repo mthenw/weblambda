@@ -14,14 +14,14 @@ exports.handler = function(event, context) {
 };
 `
 
-func install(role string) {
-	svc := lambda.New(&aws.Config{Region: "us-east-1"})
+func install(role string, region string) {
+	svc := lambda.New(&aws.Config{Region: region})
 
 	params := &lambda.CreateFunctionInput{
 		Code: &lambda.FunctionCode{
 			ZipFile: zipRuntime(),
 		},
-		FunctionName: aws.String("weblambda"),
+		FunctionName: aws.String(FunctionName),
 		Handler:      aws.String("index.handler"),
 		Runtime:      aws.String("nodejs"),
 		Role:         aws.String(role),

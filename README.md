@@ -4,11 +4,11 @@
 
 1. Install weblambda function on AWS Lambda
 
-        weblambda install --role <IAM role ARN>
+        weblambda install --role <IAM role ARN> --region us-east-1
 
 2. Run HTTP server
 
-        weblambda server
+        weblambda server --region us-east-1
 
 3. Run function
 

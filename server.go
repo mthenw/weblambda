@@ -9,12 +9,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Name of a function declared on AWS Lambda
+const FunctionName string = "weblambda"
+
 type codeToInvoke struct {
 	Source string
 }
 
-func server() {
-	svc := lambda.New(&aws.Config{Region: "us-east-1"})
+func server(region string) {
+	svc := lambda.New(&aws.Config{Region: region})
 
 	router := gin.Default()
 	router.POST("/", func(c *gin.Context) {
@@ -30,7 +33,7 @@ func server() {
 
 func invoke(svc *lambda.Lambda, fnc *codeToInvoke) (*lambda.InvokeOutput, error) {
 	params := &lambda.InvokeInput{
-		FunctionName: aws.String("weblambda"),
+		FunctionName: aws.String(FunctionName),
 		Payload:      []byte(fnc.Source),
 	}
 

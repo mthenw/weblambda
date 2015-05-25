@@ -18,17 +18,25 @@ func main() {
 				cli.StringFlag{
 					Name: "role",
 				},
+				cli.StringFlag{
+					Name: "region",
+				},
 			},
 			Usage: "install weblambda function on AWS Lambda",
 			Action: func(c *cli.Context) {
-				install(c.String("role"))
+				install(c.String("role"), c.String("region"))
 			},
 		},
 		{
 			Name:  "server",
 			Usage: "start HTTP server",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name: "region",
+				},
+			},
 			Action: func(c *cli.Context) {
-				server()
+				server(c.String("region"))
 			},
 		},
 	}
