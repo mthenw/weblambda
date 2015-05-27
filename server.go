@@ -12,9 +12,10 @@ import (
 // Name of a function declared in AWS Lambda
 const FunctionName string = "weblambda"
 
-func server(region string) {
+func server(region string, port string) {
 	svc := lambda.New(&aws.Config{Region: region})
 
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.POST("/", func(c *gin.Context) {
 		code, _ := ioutil.ReadAll(c.Request.Body)
@@ -26,7 +27,7 @@ func server(region string) {
 			c.String(http.StatusInternalServerError, string(output.Payload))
 		}
 	})
-	router.Run(":8080")
+	router.Run(":" + port)
 }
 
 func invoke(svc *lambda.Lambda, code []byte) (*lambda.InvokeOutput, error) {
