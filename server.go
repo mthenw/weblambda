@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -19,9 +18,13 @@ func server(region string) {
 	router := gin.Default()
 	router.POST("/", func(c *gin.Context) {
 		code, _ := ioutil.ReadAll(c.Request.Body)
-		output, _ := invoke(svc, code)
+		output, err := invoke(svc, code)
 
-		c.String(http.StatusOK, string(output.Payload))
+		if err == nil {
+			c.String(http.StatusOK, string(output.Payload))
+		} else {
+			c.String(http.StatusInternalServerError, string(output.Payload))
+		}
 	})
 	router.Run(":8080")
 }
@@ -32,15 +35,5 @@ func invoke(svc *lambda.Lambda, code []byte) (*lambda.InvokeOutput, error) {
 		Payload:      code,
 	}
 
-	resp, err := svc.Invoke(params)
-
-	if awserr := aws.Error(err); awserr != nil {
-		// A service error occurred.
-		fmt.Println("Error:", awserr.Code, awserr.Message)
-	} else if err != nil {
-		// A non-service error occurred.
-		panic(err)
-	}
-
-	return resp, err
+	return svc.Invoke(params)
 }
