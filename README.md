@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/mthenw/weblambda.svg?branch=master)](https://travis-ci.org/mthenw/weblambda)
 
+## Installation
+
+        go get github.com/mthenw/weblambda
+
 ## Usage
 
 1. Install weblambda function on AWS Lambda
