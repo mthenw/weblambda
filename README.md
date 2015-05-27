@@ -6,6 +6,8 @@
 
         go get github.com/mthenw/weblambda
 
+**Remember about [configuring credentials](https://github.com/awslabs/aws-sdk-go/#configuring-credentials)**
+
 ## Usage
 
 1. Install weblambda function on AWS Lambda
