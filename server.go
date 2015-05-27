@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/awslabs/aws-sdk-go/aws"
@@ -9,32 +10,26 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Name of a function declared on AWS Lambda
+// Name of a function declared in AWS Lambda
 const FunctionName string = "weblambda"
-
-type codeToInvoke struct {
-	Source string
-}
 
 func server(region string) {
 	svc := lambda.New(&aws.Config{Region: region})
 
 	router := gin.Default()
 	router.POST("/", func(c *gin.Context) {
-		var fnc codeToInvoke
-		c.Bind(&fnc)
-
-		output, _ := invoke(svc, &fnc)
+		code, _ := ioutil.ReadAll(c.Request.Body)
+		output, _ := invoke(svc, code)
 
 		c.String(http.StatusOK, string(output.Payload))
 	})
 	router.Run(":8080")
 }
 
-func invoke(svc *lambda.Lambda, fnc *codeToInvoke) (*lambda.InvokeOutput, error) {
+func invoke(svc *lambda.Lambda, code []byte) (*lambda.InvokeOutput, error) {
 	params := &lambda.InvokeInput{
 		FunctionName: aws.String(FunctionName),
-		Payload:      []byte(fnc.Source),
+		Payload:      code,
 	}
 
 	resp, err := svc.Invoke(params)
