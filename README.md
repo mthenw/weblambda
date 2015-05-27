@@ -6,7 +6,7 @@
 
         go get github.com/mthenw/weblambda
 
-**Remember about [configuring credentials](https://github.com/awslabs/aws-sdk-go/#configuring-credentials)**
+*Remember about [configuring credentials](https://github.com/awslabs/aws-sdk-go/#configuring-credentials)*
 
 ## Usage
 
