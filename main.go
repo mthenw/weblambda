@@ -9,7 +9,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "weblambda"
-	app.Usage = "backendless webhooks server backed by AWS Lambda"
+	app.Usage = "backendless webhooks server on top of AWS Lambda"
 
 	app.Commands = []cli.Command{
 		{
