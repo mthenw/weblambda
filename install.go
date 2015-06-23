@@ -17,6 +17,24 @@ exports.handler = function(event, context) {
 func install(role string, region string) {
 	svc := lambda.New(&aws.Config{Region: region})
 
+	if functionExists(svc) {
+		println("Function already exits")
+	} else {
+		createFunction(svc, role)
+	}
+}
+
+func functionExists(svc *lambda.Lambda) bool {
+	params := &lambda.GetFunctionInput{
+		FunctionName: aws.String(FunctionName),
+	}
+
+	_, err := svc.GetFunction(params)
+
+	return err == nil
+}
+
+func createFunction(svc *lambda.Lambda, role string) {
 	params := &lambda.CreateFunctionInput{
 		Code: &lambda.FunctionCode{
 			ZipFile: zipRuntime(),
