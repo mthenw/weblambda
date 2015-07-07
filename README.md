@@ -24,5 +24,5 @@ go get github.com/mthenw/weblambda
 
 4. Run function
 
-        $ curl 127.0.0.1:8080 --data-binary "{\"source\":\"context.succeed({'test': 'Hello world'});\"}"
-        {"test":"Hello world"}%
+        $ curl 127.0.0.1:8080 --data-binary "var result = 'Hello world!'; context.succeed(result);"
+        "Hello world!"
