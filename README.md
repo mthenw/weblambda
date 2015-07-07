@@ -10,7 +10,7 @@ go get github.com/mthenw/weblambda
 
 *Remember about [configuring credentials](https://github.com/awslabs/aws-sdk-go/#configuring-credentials)*
 
-## Usage
+## Example
 
 1. Create IAM role for weblambda function
 
@@ -26,3 +26,27 @@ go get github.com/mthenw/weblambda
 
         $ curl 127.0.0.1:8080 --data-binary "var result = 'Hello world!'; context.succeed(result);"
         "Hello world!"
+
+## Usage
+
+```
+$ weblambda help
+NAME:
+   weblambda - backendless webhooks server on top of AWS Lambda
+
+USAGE:
+   weblambda [global options] command [command options] [arguments...]
+
+VERSION:
+   0.0.0
+
+COMMANDS:
+   install	Install weblambda function on AWS Lambda
+   server	Start HTTP server
+   help, h	Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h		show help
+   --version, -v	print the version
+
+```

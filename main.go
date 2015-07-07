@@ -28,14 +28,14 @@ func main() {
 					Usage: "Upgrade existing function",
 				},
 			},
-			Usage: "install weblambda function on AWS Lambda",
+			Usage: "Install weblambda function on AWS Lambda",
 			Action: func(c *cli.Context) {
 				install(c.String("role"), c.String("region"), c.Bool("upgrade"))
 			},
 		},
 		{
 			Name:  "server",
-			Usage: "start HTTP server",
+			Usage: "Start HTTP server",
 			Flags: []cli.Flag{
 				cli.StringFlag{
 					Name:  "region",
