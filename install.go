@@ -14,12 +14,18 @@ exports.handler = function(event, context) {
 };
 `
 
-func install(role string, region string) {
+func install(role string, region string, upgrade bool) {
 	svc := lambda.New(&aws.Config{Region: region})
 
 	if functionExists(svc) {
-		println("Function already exits")
-	} else {
+		if upgrade {
+			deleteFunction(svc)
+		} else {
+			println("Function already exits")
+		}
+	}
+
+	if upgrade {
 		createFunction(svc, role)
 	}
 }
@@ -46,6 +52,17 @@ func createFunction(svc *lambda.Lambda, role string) {
 	}
 
 	_, err := svc.CreateFunction(params)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func deleteFunction(svc *lambda.Lambda) {
+	params := &lambda.DeleteFunctionInput{
+		FunctionName: aws.String(FunctionName),
+	}
+
+	_, err := svc.DeleteFunction(params)
 	if err != nil {
 		panic(err)
 	}

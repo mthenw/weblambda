@@ -23,10 +23,14 @@ func main() {
 					Value: "us-east-1",
 					Usage: "AWS region name",
 				},
+				cli.BoolFlag{
+					Name:  "upgrade, u",
+					Usage: "Upgrade existing function",
+				},
 			},
 			Usage: "install weblambda function on AWS Lambda",
 			Action: func(c *cli.Context) {
-				install(c.String("role"), c.String("region"))
+				install(c.String("role"), c.String("region"), c.Bool("upgrade"))
 			},
 		},
 		{
