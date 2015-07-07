@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 
@@ -12,14 +13,22 @@ import (
 // Name of a function declared in AWS Lambda
 const FunctionName string = "weblambda"
 
+type weblambdaRequest struct {
+	Source string `json:"source"`
+}
+
 func server(region string, port string) {
 	svc := lambda.New(&aws.Config{Region: region})
 
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.POST("/", func(c *gin.Context) {
-		code, _ := ioutil.ReadAll(c.Request.Body)
-		output, err := invoke(svc, code)
+		source, _ := ioutil.ReadAll(c.Request.Body)
+		req := &weblambdaRequest{
+			Source: string(source[:]),
+		}
+
+		output, err := invoke(svc, req)
 
 		if err == nil {
 			c.String(http.StatusOK, string(output.Payload))
@@ -30,10 +39,12 @@ func server(region string, port string) {
 	router.Run(":" + port)
 }
 
-func invoke(svc *lambda.Lambda, code []byte) (*lambda.InvokeOutput, error) {
+func invoke(svc *lambda.Lambda, req *weblambdaRequest) (*lambda.InvokeOutput, error) {
+	reqJSON, _ := json.Marshal(req)
+
 	params := &lambda.InvokeInput{
 		FunctionName: aws.String(FunctionName),
-		Payload:      code,
+		Payload:      reqJSON,
 	}
 
 	return svc.Invoke(params)
