@@ -9,7 +9,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "weblambda"
-	app.Usage = "Run JavaScript code with HTTP call on AWS Lambda"
+	app.Usage = "Run JavaScript code on AWS Lambda with HTTP call"
 
 	app.Commands = []cli.Command{
 		{

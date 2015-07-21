@@ -32,7 +32,7 @@ go get github.com/mthenw/weblambda
 ```
 $ weblambda help
 NAME:
-   weblambda - Run JavaScript code with HTTP call on AWS Lambda
+   weblambda - Run JavaScript code on AWS Lambda with HTTP call
 
 USAGE:
    weblambda [global options] command [command options] [arguments...]
