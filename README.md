@@ -50,3 +50,7 @@ GLOBAL OPTIONS:
    --version, -v	print the version
 
 ```
+
+## AWS Lambda limits
+
+Number requests per second is limited by [AWS Lmabda limits](http://docs.aws.amazon.com/lambda/latest/dg/limits.html).
