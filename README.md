@@ -53,4 +53,4 @@ GLOBAL OPTIONS:
 
 ## AWS Lambda limits
 
-Number requests per second is limited by [AWS Lmabda limits](http://docs.aws.amazon.com/lambda/latest/dg/limits.html).
+Number requests per second is limited by [AWS Lambda limits](http://docs.aws.amazon.com/lambda/latest/dg/limits.html).
