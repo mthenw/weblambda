@@ -32,7 +32,7 @@ go get github.com/mthenw/weblambda
 ```
 $ weblambda help
 NAME:
-   weblambda - backendless webhooks server on top of AWS Lambda
+   weblambda - Run JavaScript code with HTTP call on AWS Lambda
 
 USAGE:
    weblambda [global options] command [command options] [arguments...]
